@@ -3,7 +3,17 @@
  * Module dependencies.
  */
 
-var express = require('express');
+var express = require('express')
+    ,_ = require('underscore')
+    ,mongoose = require('mongoose')
+;
+
+//establish mongoose connection
+mongoose.connect('mongodb://localhost/pine-ecosystem');
+
+var schemas = require('./schemas')(mongoose)
+    ,models = require('./models')(mongoose, schemas)
+;
 
 var app = module.exports = express.createServer();
 
@@ -30,7 +40,7 @@ app.configure('production', function(){
 
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'Express'
+    title: 'Pine Ecosystem'
   });
 });
 
